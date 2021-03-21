@@ -18,18 +18,17 @@ export default class CreateUserService {
     status,
   }: IUserRequest): Promise<User> {
     const userExists = await this.usersRepository.findByEmail(email);
-
     if (userExists) {
       throw new AppError('User already exists', 400);
     }
-    const user = await this.usersRepository.create({
+
+    const created = await this.usersRepository.create({
       name,
       email,
       password,
       type_id,
       status,
     });
-    console.log(user);
-    return user;
+    return created;
   }
 }

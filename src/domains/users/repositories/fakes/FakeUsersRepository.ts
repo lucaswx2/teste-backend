@@ -8,52 +8,39 @@ class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
   constructor() {}
 
-  findAll(): Promise<User[]> {
-    return new Promise(resolve => {
-      resolve(this.users);
-    });
+  async findAll(): Promise<User[]> {
+    return this.users;
   }
-  findById(id: string): Promise<User | undefined> {
-    return new Promise(resolve => {
-      resolve(this.users.find(user => user.id === id));
-    });
+  async findById(id: string): Promise<User | undefined> {
+    return this.users.find(user => user.id === id);
   }
 
-  findByEmail(email: string): Promise<User | undefined> {
-    return new Promise(resolve => {
-      const user = this.users.find(u => u.email === email);
+  async findByEmail(email: string): Promise<User | undefined> {
+    const user = this.users.find(u => u.email === email);
 
-      resolve(user);
-    });
+    return user;
   }
 
-  deleteById(id: string): Promise<null> {
-    return new Promise(resolve => {
-      this.users = this.users.filter(u => u.id !== id);
-      resolve(null);
-    });
+  async deleteById(id: string): Promise<void> {
+    this.users = this.users.filter(u => u.id !== id);
   }
 
-  create(data: ICreateUserDTO): Promise<User> {
-    return new Promise(resolve => {
-      let user = new User();
-      user = {
-        ...data,
-        password: bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
-        created_at: new Date(),
-        updated_at: new Date(),
-        id: v4(),
-      };
-      this.users.push(user);
-      resolve(user);
-    });
+  async create(data: ICreateUserDTO): Promise<User> {
+    let user = new User();
+    user = {
+      ...data,
+      password: bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
+      created_at: new Date(),
+      updated_at: new Date(),
+      id: v4(),
+    };
+    this.users.push(user);
+    return user;
   }
-  save(data: User): Promise<User> {
-    return new Promise(resolve => {
-      const findIndex = this.users.findIndex(user => user.id === data.id);
-      this.users[findIndex] = data;
-      resolve(this.users[findIndex]);
-    });
+  async save(data: User): Promise<User> {
+    const findIndex = this.users.findIndex(user => user.id === data.id);
+    this.users[findIndex] = data;
+    return this.users[findIndex];
   }
 }
 export default FakeUsersRepository;

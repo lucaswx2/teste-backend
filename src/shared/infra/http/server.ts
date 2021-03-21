@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
 import 'express-async-errors';
 import 'reflect-metadata';
+import '@shared/infra/typeorm';
 import { isCelebrateError } from 'celebrate';
 
 import AppError from '@shared/errorsHandlers/AppError';
@@ -13,7 +14,9 @@ app.use(express.json());
 
 app.use(routes);
 
-app.use((err: any, request: Request, response: Response) => {
+app.use((err: any, request: Request, response: Response, _: NextFunction) => {
+  console.log(err);
+
   if (isCelebrateError(err)) {
     const obj: any = Array.from(err.details.entries()).reduce(
       (main, [key, value]) => ({ ...main, [key]: value }),

@@ -5,8 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import bcrypt from 'bcryptjs';
+import UserType from './UserTypes';
 
 @Entity('users')
 class User {
@@ -29,8 +32,12 @@ class User {
     }
   }
 
-  @Column()
-  type_id: number;
+  // @OneToOne(() => UserType)
+  // @JoinColumn()
+  // type?: number;
+
+  @Column({ name: 'type_id' })
+  typeId: number;
 
   @Column()
   status: boolean;

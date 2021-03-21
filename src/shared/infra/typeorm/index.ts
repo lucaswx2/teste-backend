@@ -1,3 +1,2 @@
-import { createConnections } from 'typeorm';
-
-createConnections();
+import { createConnection } from 'typeorm';
+createConnection();

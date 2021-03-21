@@ -4,7 +4,7 @@ const { compilerOptions } = require('./tsconfig.json');
 export default {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ['./src/domains/**/*.ts'],
+  collectCoverageFrom: ['./src/domains/**/services/*.ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['text-summary', 'lcov'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
