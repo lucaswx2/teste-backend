@@ -51,4 +51,12 @@ describe('AuthenticateUser', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+  it('should throw an error if user does not exists', async () => {
+    await expect(
+      authenticateUserService.handle({
+        email: 'nonExisting@email.com',
+        password: 'wrong',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

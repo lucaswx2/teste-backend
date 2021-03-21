@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
 } from 'typeorm';
+import bcrypt from 'bcryptjs';
 
 @Entity('users')
 class User {
@@ -19,6 +21,13 @@ class User {
 
   @Column()
   password: string;
+
+  @BeforeInsert()
+  public static async hashPassword(user: User) {
+    if (user.password) {
+      user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
+    }
+  }
 
   @Column()
   type_id: number;

@@ -2,6 +2,7 @@ import IUsersRepository from '@domains/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@domains/users/dtos/ICreateUserDTO';
 import User from '@domains/users/infra/typeorm/entities/User';
 import { v4 } from 'uuid';
+import bcrypt from 'bcryptjs';
 
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
@@ -38,6 +39,7 @@ class FakeUsersRepository implements IUsersRepository {
       let user = new User();
       user = {
         ...data,
+        password: bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
         created_at: new Date(),
         updated_at: new Date(),
         id: v4(),

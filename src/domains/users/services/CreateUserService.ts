@@ -29,6 +29,7 @@ export default class CreateUserService {
       type_id,
       status,
     });
+    console.log(user);
     return user;
   }
 }
