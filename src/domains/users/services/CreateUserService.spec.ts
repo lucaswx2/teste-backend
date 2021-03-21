@@ -1,5 +1,6 @@
 import FakeUsersRepository from '@domains/users/repositories/fakes/FakeUsersRepository';
 import CreateUserService from '@domains/users/services/CreateUserService';
+import AppError from '@shared/errorsHandlers/AppError';
 
 let fakeUsersRepository: FakeUsersRepository = new FakeUsersRepository();
 let createUserService: CreateUserService;
@@ -20,20 +21,21 @@ describe('CreateUser', () => {
   });
   it('should not be able to create a new user with same email from another', async () => {
     await createUserService.handle({
-      email: 'testUser@email.com',
+      email: 'repeatTestUser@email.com',
       password: 'test321',
       name: 'Test User',
       status: true,
       type_id: 2,
     });
+
     await expect(
       createUserService.handle({
-        email: 'testUser@email.com',
+        email: 'repeatTestUser@email.com',
         password: 'test321',
         name: 'Test User',
         status: true,
         type_id: 2,
       }),
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
