@@ -1,0 +1,32 @@
+[
+  {
+    "group": "ROOT",
+    "permissions": [
+      {
+        "resource": "*",
+        "methods": "*",
+        "action": "allow"
+      }
+    ]
+  }, 
+  {
+    "group": "ADMIN",
+    "permissions": [
+      {
+        "resource": "users/*",
+        "methods": ["PUT","GET"],
+        "action": "allow"
+      }
+    ]
+  },
+  {
+    "group": "GENERAL",
+    "permissions": [
+      {
+        "resource": "users/*",
+        "methods": [ "GET", "PUT"],
+        "action": "allow"
+      }
+    ]
+  }
+]

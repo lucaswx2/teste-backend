@@ -34,9 +34,10 @@ export default class UserController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    //TODO validate if request id is the same of authenticated user if not admin or root
     const { id } = request.params;
-
+    if (request.user?.role === 'GENERAL' && request.user.id !== id) {
+      throw new AppError('Not allowed to see the data from this user');
+    }
     const repository = new UserRepository();
 
     const showUsersService = new ShowUserService(repository);

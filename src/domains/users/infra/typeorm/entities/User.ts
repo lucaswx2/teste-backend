@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
   OneToOne,
   JoinColumn,
 } from 'typeorm';
@@ -25,16 +24,11 @@ class User {
   @Column()
   password: string;
 
-  @BeforeInsert()
-  public static async hashPassword(user: User) {
-    if (user.password) {
-      user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
-    }
-  }
-
-  // @OneToOne(() => UserType)
-  // @JoinColumn()
-  // type?: number;
+  @OneToOne(() => UserType, {
+    eager: true,
+  })
+  @JoinColumn({ referencedColumnName: 'id', name: 'type_id' })
+  type: UserType;
 
   @Column({ name: 'type_id' })
   typeId: number;

@@ -35,7 +35,8 @@ class UsersRepository implements IUsersRepository {
     return created;
   }
   async save(data: User): Promise<User> {
-    const user = await this.repository.save(data);
+    const entity = Object.assign(new User(), data);
+    const user = await this.repository.save(entity);
 
     return user;
   }

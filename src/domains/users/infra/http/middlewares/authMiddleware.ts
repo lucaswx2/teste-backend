@@ -3,11 +3,16 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 import AppError from '@shared/errorsHandlers/AppError';
+import acl from '@config/acl';
+import { Console } from 'node:console';
 
 interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  role: string;
+  status: boolean;
+  email: string;
 }
 export default function AuthMiddleware(
   request: Request,
@@ -25,12 +30,17 @@ export default function AuthMiddleware(
   const { secret } = authConfig.jwt;
   try {
     const decoded = verify(token, secret);
-    console.log(decoded);
-    const { sub } = decoded as ITokenPayload;
+    const { sub, role, status, email } = decoded as ITokenPayload;
     request.user = {
       id: sub,
+      role,
+      status,
+      email,
     };
-
+    if (!request.user.status) {
+      throw new AppError('User is disabled', 401);
+    }
+    console.log(request.user);
     return next();
   } catch {
     throw new AppError('Invalid JWT token', 401);

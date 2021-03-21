@@ -34,7 +34,7 @@ export default class AuthenticateUserService {
       token: jwt.sign(
         {
           email: user.email,
-          type_id: user.type_id,
+          role: user.type.name,
           status: user.status,
         },
         auth.jwt.secret,

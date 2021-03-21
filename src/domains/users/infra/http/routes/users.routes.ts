@@ -2,12 +2,13 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import UserController from '../controllers/UserController';
 import AuthMiddleware from '../middlewares/authMiddleware';
+import acl from '@config/acl';
 
 const usersRouter = Router();
 
 const userController = new UserController();
 
-// usersRouter.use(AuthMiddleware);
+usersRouter.use(AuthMiddleware, acl.authorize);
 
 usersRouter.post(
   '/',

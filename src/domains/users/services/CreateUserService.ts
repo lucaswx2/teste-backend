@@ -1,6 +1,7 @@
 import AppError from '@shared/errorsHandlers/AppError';
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+import bcrypt from 'bcryptjs';
 interface IUserRequest {
   name: string;
   email: string;
@@ -22,6 +23,7 @@ export default class CreateUserService {
       throw new AppError('User already exists', 400);
     }
 
+    password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     const created = await this.usersRepository.create({
       name,
       email,
