@@ -28,7 +28,7 @@ describe('ListUser', () => {
       type_id: 2,
     });
 
-    const users = listUserService.handle();
+    const users = await listUserService.handle();
 
     expect(users).toEqual(expect.arrayContaining([user, user2]));
   });

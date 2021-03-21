@@ -7,8 +7,10 @@ class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
   constructor() {}
 
-  findAll(): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
+  findAll(): Promise<User[]> {
+    return new Promise(resolve => {
+      resolve(this.users);
+    });
   }
   findById(id: string): Promise<User | undefined> {
     throw new Error('Method not implemented.');
