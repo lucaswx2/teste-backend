@@ -13,7 +13,9 @@ class FakeUsersRepository implements IUsersRepository {
     });
   }
   findById(id: string): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
+    return new Promise(resolve => {
+      resolve(this.users.find(user => user.id === id));
+    });
   }
 
   findByEmail(email: string): Promise<User | undefined> {

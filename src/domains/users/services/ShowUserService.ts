@@ -2,11 +2,12 @@ import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IUserRequest {
-  id: number;
+  id: string;
 }
 export default class ShowUserService {
   constructor(private usersRepository: IUsersRepository) {}
   public async handle({ id }: IUserRequest): Promise<any> {
-    return null;
+    const user = await this.usersRepository.findById(id);
+    return user;
   }
 }
