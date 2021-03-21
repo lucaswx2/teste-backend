@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  server:
+    restart: on-failure
+    build:
+      dockerfile: ./docker/server.Dockerfile
+      context: .
+    container_name: teste-backend-server
+    networks:
+      - webapp
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/var/www
+      - /var/www/node_modules
+  database:
+    restart: unless-stopped
+    image: postgres:13
+    container_name: teste-backend-database
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-teste-backend}
+
+    ports:
+      - "5432:5432"
+    networks:
+      - webapp
+networks:
+  webapp:
+    driver: bridge
+volumes:
+  esdata:
+    driver: local
