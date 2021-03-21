@@ -1,7 +1,7 @@
 import IUsersRepository from '@domains/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@domains/users/dtos/ICreateUserDTO';
 import User from '@domains/users/infra/typeorm/entities/User';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
@@ -32,9 +32,7 @@ class FakeUsersRepository implements IUsersRepository {
       resolve(null);
     });
   }
-  update(user: User): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
-  }
+
   create(data: ICreateUserDTO): Promise<User> {
     return new Promise(resolve => {
       let user = new User();
@@ -42,14 +40,18 @@ class FakeUsersRepository implements IUsersRepository {
         ...data,
         created_at: new Date(),
         updated_at: new Date(),
-        id: uuid(),
+        id: v4(),
       };
       this.users.push(user);
       resolve(user);
     });
   }
-  save(userData: User): Promise<User> {
-    throw new Error('Method not implemented.');
+  save(data: User): Promise<User> {
+    return new Promise(resolve => {
+      const findIndex = this.users.findIndex(user => user.id === data.id);
+      this.users[findIndex] = data;
+      resolve(this.users[findIndex]);
+    });
   }
 }
 export default FakeUsersRepository;

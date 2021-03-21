@@ -1,5 +1,6 @@
 import FakeUsersRepository from '@domains/users/repositories/fakes/FakeUsersRepository';
 import CreateUserService from '@domains/users/services/CreateUserService';
+import AppError from '@shared/errorsHandlers/AppError';
 import UpdateUserService from './UpdateUserService';
 
 let fakeUsersRepository: FakeUsersRepository = new FakeUsersRepository();
@@ -25,5 +26,19 @@ describe('UpdateUser', () => {
     const updatedUser = await updateUserService.handle(user);
 
     expect(updatedUser.name).toEqual(user.name);
+  });
+  it('should throw a error if user does not exists', async () => {
+    const user = {
+      email: 'testUser@email.com',
+      password: 'test321',
+      name: 'Test User',
+      status: true,
+      type_id: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
+      id: 'fakeId',
+    };
+
+    expect(updateUserService.handle(user)).rejects.toBeInstanceOf(AppError);
   });
 });

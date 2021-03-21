@@ -23,6 +23,9 @@ class User {
   @Column()
   type_id: number;
 
+  @Column()
+  status: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
