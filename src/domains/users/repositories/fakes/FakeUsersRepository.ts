@@ -10,7 +10,7 @@ class FakeUsersRepository implements IUsersRepository {
   findAll(): Promise<User | undefined> {
     throw new Error('Method not implemented.');
   }
-  findById(id: number): Promise<User | undefined> {
+  findById(id: string): Promise<User | undefined> {
     throw new Error('Method not implemented.');
   }
 
@@ -22,8 +22,11 @@ class FakeUsersRepository implements IUsersRepository {
     });
   }
 
-  deleteById(id: number): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
+  deleteById(id: string): Promise<null> {
+    return new Promise(resolve => {
+      this.users = this.users.filter(u => u.id !== id);
+      resolve(null);
+    });
   }
   update(user: User): Promise<User | undefined> {
     throw new Error('Method not implemented.');
@@ -35,7 +38,7 @@ class FakeUsersRepository implements IUsersRepository {
         ...data,
         created_at: new Date(),
         updated_at: new Date(),
-        id: Math.random().toFixed(0),
+        id: uuid(),
       };
       this.users.push(user);
       resolve(user);

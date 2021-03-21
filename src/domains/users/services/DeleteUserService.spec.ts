@@ -27,6 +27,6 @@ describe('DeleteUser', () => {
 
     const users = listUserService.handle();
 
-    expect(users).toEqual(expect.not.arrayContaining(user));
+    expect(users).toEqual(expect.not.arrayContaining([user]));
   });
 });
