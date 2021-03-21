@@ -29,5 +29,4 @@ describe('DeleteUser', () => {
 
     expect(users).toEqual(expect.not.arrayContaining(user));
   });
-  // it('should return error if authenticated user is not root');
 });
