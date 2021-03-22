@@ -12,17 +12,17 @@ describe('AuthenticateUser', () => {
     authenticateUserService = new AuthenticateUserService(fakeUsersRepository);
   });
   it('should be able to authenticate', async () => {
-    const user = await createUserService.handle({
+    await createUserService.handle({
       email: 'testUser@email.com',
-      password: 'test321',
+      password: 'teste321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     const response = await authenticateUserService.handle({
       email: 'testUser@email.com',
-      password: 'test321',
+      password: 'teste321',
     });
 
     expect(response).toHaveProperty('token');
@@ -41,7 +41,7 @@ describe('AuthenticateUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     await expect(

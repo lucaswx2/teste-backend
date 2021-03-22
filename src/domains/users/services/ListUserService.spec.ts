@@ -17,7 +17,7 @@ describe('ListUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     const user2 = await createUserService.handle({
@@ -25,7 +25,7 @@ describe('ListUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     const users = await listUserService.handle();

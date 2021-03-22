@@ -20,7 +20,7 @@ describe('DeleteUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     await deleteUserService.handle({ id: user.id });

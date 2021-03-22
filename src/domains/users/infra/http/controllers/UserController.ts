@@ -10,7 +10,7 @@ import AppError from '@shared/errorsHandlers/AppError';
 export default class UserController {
   public async store(request: Request, response: Response): Promise<Response> {
     const repository = new UserRepository();
-    const { name, email, password, type_id, status } = request.body;
+    const { name, email, password, typeId, status } = request.body;
 
     const createUserService = new CreateUserService(repository);
 
@@ -18,7 +18,7 @@ export default class UserController {
       name,
       email,
       password,
-      type_id,
+      typeId,
       status,
     });
     return response.json(user).status(200);
@@ -46,7 +46,7 @@ export default class UserController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id, name, email, password, type_id, status } = request.body;
+    const { id, name, email, password, typeId, status } = request.body;
 
     if (request.params.id !== id) {
       throw new AppError('ids are not the same', 400);
@@ -60,7 +60,7 @@ export default class UserController {
       name,
       email,
       password,
-      type_id,
+      typeId,
       status,
     });
     return response.json(user).status(200);

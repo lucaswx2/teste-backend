@@ -28,7 +28,7 @@ class User {
     eager: true,
   })
   @JoinColumn({ referencedColumnName: 'id', name: 'type_id' })
-  type: UserType;
+  type?: UserType;
 
   @Column({ name: 'type_id' })
   typeId: number;

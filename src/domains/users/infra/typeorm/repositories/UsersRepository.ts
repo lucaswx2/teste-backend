@@ -1,4 +1,4 @@
-import { getRepository, Repository, createConnection } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import IUsersRepository from '@domains/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@domains/users/dtos/ICreateUserDTO';
 import User from '@domains/users/infra/typeorm/entities/User';

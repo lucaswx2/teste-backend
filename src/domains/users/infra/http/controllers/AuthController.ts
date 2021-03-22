@@ -5,7 +5,7 @@ import AuthenticateUserService from '@domains/users/services/AuthenticateUserSer
 export default class AuthController {
   public async store(request: Request, response: Response): Promise<Response> {
     const repository = new UserRepository();
-    const { name, email, password, type_id, status } = request.body;
+    const { name, email, password, typeId, status } = request.body;
 
     const createUserService = new AuthenticateUserService(repository);
 

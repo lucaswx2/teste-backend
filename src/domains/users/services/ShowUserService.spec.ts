@@ -16,7 +16,7 @@ describe('ShowUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     const returnedUser = await showUserService.handle({ id: user.id });

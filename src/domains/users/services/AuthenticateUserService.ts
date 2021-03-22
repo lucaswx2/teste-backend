@@ -20,7 +20,6 @@ export default class AuthenticateUserService {
     password,
   }: IAuthRequest): Promise<IAuthResponse> {
     const user = await this.usersRepository.findByEmail(email);
-
     if (!user) {
       throw new AppError('User or password invalid', 401);
     }
@@ -34,7 +33,7 @@ export default class AuthenticateUserService {
       token: jwt.sign(
         {
           email: user.email,
-          role: user.type.name,
+          role: user.type?.name,
           status: user.status,
         },
         auth.jwt.secret,

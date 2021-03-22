@@ -29,7 +29,6 @@ class FakeUsersRepository implements IUsersRepository {
     let user = new User();
     user = {
       ...data,
-      password: bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
       created_at: new Date(),
       updated_at: new Date(),
       id: v4(),

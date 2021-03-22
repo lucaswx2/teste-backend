@@ -14,7 +14,7 @@ describe('CreateUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     expect(user).toHaveProperty('id');
@@ -25,7 +25,7 @@ describe('CreateUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     await expect(
@@ -34,7 +34,7 @@ describe('CreateUser', () => {
         password: 'test321',
         name: 'Test User',
         status: true,
-        type_id: 2,
+        typeId: 2,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

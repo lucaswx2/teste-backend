@@ -1,12 +1,11 @@
 import AppError from '@shared/errorsHandlers/AppError';
-import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 interface IUpdateDTO {
   id: string;
   name: string;
   email: string;
   password: string;
-  type_id: number;
+  typeId: number;
   status: boolean;
 }
 export default class UpdateUserService {
@@ -20,7 +19,7 @@ export default class UpdateUserService {
     user.email = data.email;
     user.name = data.name;
     user.status = data.status;
-    user.type_id = data.type_id;
+    user.typeId = data.typeId;
 
     const updatedUser = await this.usersRepository.save(user);
 

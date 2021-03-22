@@ -18,7 +18,7 @@ describe('UpdateUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
     });
 
     user.name = 'Updated name';
@@ -33,7 +33,7 @@ describe('UpdateUser', () => {
       password: 'test321',
       name: 'Test User',
       status: true,
-      type_id: 2,
+      typeId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       id: 'fakeId',

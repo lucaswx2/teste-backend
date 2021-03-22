@@ -7,7 +7,7 @@ interface IUserRequest {
   email: string;
   password: string;
   status: boolean;
-  type_id: number;
+  typeId: number;
 }
 export default class CreateUserService {
   constructor(private usersRepository: IUsersRepository) {}
@@ -15,7 +15,7 @@ export default class CreateUserService {
     name,
     email,
     password,
-    type_id,
+    typeId,
     status,
   }: IUserRequest): Promise<User> {
     const userExists = await this.usersRepository.findByEmail(email);
@@ -28,7 +28,7 @@ export default class CreateUserService {
       name,
       email,
       password,
-      type_id,
+      typeId,
       status,
     });
     return created;
