@@ -5,9 +5,7 @@
 1. Configure as váriaveis de ambiente no arquivo `.env` o código contido no arquivo `.env.example` deve ser usado como base
 2. Execute o comando docker-compose up -d para executar o docker compose
 3. Acesse a aplicação através da porta `5000`
-4. Veja a documentação [Aqui]([https://link](https://documenter.getpostman.com/view/4002082/Tz5wXak2#intro))
-
-
+4. Veja a documentação [Aqui](https://documenter.getpostman.com/view/4002082/Tz5wXak2#intro)
 ## Sobre a arquitetura
 
 Tentei aplicar os principios do SOLID e DDD, a aplicação é separada em 3 grandes camadas que são `@config` , `@shared` e `@domains`
@@ -16,8 +14,6 @@ Tentei aplicar os principios do SOLID e DDD, a aplicação é separada em 3 gran
 - Na camada `@shared` ficam os arquivos que serão compartilhados por todos os dominios da aplicação, como os ErrorsHandlers, o Express, e o TypeORM
 - Na camada `@domains` ficam os dominios da aplicação, no caso desse projeto temos apenas o domínio `users`
 - Dentro de cada domínio temos as services, os repositórios fakes para os testes unitários e a pasta infra que contém os controllers, as rotas, as Models do TypeORM e os repositórios do typeorm
-
-
 
 ### Disclaimer
 
