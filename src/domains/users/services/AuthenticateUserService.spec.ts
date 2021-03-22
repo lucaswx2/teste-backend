@@ -59,4 +59,20 @@ describe('AuthenticateUser', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+  it('should throw an error if user status is false', async () => {
+    await createUserService.handle({
+      email: 'statusfalse@email.com',
+      password: 'test321',
+      name: 'Test User',
+      status: false,
+      typeId: 2,
+    });
+
+    await expect(
+      authenticateUserService.handle({
+        email: 'statusfalse@email.com',
+        password: 'test321',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

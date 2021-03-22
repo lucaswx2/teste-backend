@@ -6,7 +6,7 @@ interface IUserRequest {
 }
 export default class ShowUserService {
   constructor(private usersRepository: IUsersRepository) {}
-  public async handle({ id }: IUserRequest): Promise<any> {
+  public async handle({ id }: IUserRequest): Promise<User | undefined> {
     const user = await this.usersRepository.findById(id);
     return user;
   }

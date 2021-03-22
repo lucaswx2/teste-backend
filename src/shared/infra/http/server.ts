@@ -15,8 +15,6 @@ app.use(express.json());
 app.use(routes);
 
 app.use((err: any, request: Request, response: Response, _: NextFunction) => {
-  console.log(err);
-
   if (isCelebrateError(err)) {
     const obj: any = Array.from(err.details.entries()).reduce(
       (main, [key, value]) => ({ ...main, [key]: value }),

@@ -26,6 +26,12 @@ export default class UserController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const repository = new UserRepository();
+    if (request.user?.role === 'GENERAL') {
+      throw new AppError(
+        'You are not authorized to access this resourcer',
+        401,
+      );
+    }
 
     const listUsersService = new ListUserService(repository);
 
@@ -46,8 +52,15 @@ export default class UserController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id, name, email, password, typeId, status } = request.body;
-
+    const { id, name, email, status, typeId } = request.body;
+    let updateObj;
+    if (request.user?.role === 'GENERAL') {
+      updateObj = { id, name: name, email: email };
+    } else if (request.user?.role === 'ADMIN') {
+      updateObj = { id, name, email, status };
+    } else {
+      updateObj = { id, name, email, status, typeId };
+    }
     if (request.params.id !== id) {
       throw new AppError('ids are not the same', 400);
     }
@@ -55,25 +68,21 @@ export default class UserController {
 
     const updateUserService = new UpdateUserService(repository);
 
-    const user = await updateUserService.handle({
-      id,
-      name,
-      email,
-      password,
-      typeId,
-      status,
-    });
+    const user = await updateUserService.handle(updateObj);
     return response.json(user).status(200);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
+    if (id === request.user?.id) {
+      throw new AppError('You cant delete yourself', 401);
+    }
     const repository = new UserRepository();
 
     const deleteUserService = new DeleteUserService(repository);
 
     await deleteUserService.handle({ id });
-    return response.status(200);
+    return response.send(200);
   }
 }

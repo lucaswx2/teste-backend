@@ -24,6 +24,10 @@ export default class AuthenticateUserService {
       throw new AppError('User or password invalid', 401);
     }
 
+    if (!user.status) {
+      throw new AppError('User is disabled', 401);
+    }
+
     if (!bcrypt.compareSync(password, user.password)) {
       throw new AppError('User or password invalid', 401);
     }

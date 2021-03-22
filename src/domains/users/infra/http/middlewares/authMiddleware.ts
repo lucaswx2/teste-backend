@@ -40,7 +40,6 @@ export default function AuthMiddleware(
     if (!request.user.status) {
       throw new AppError('User is disabled', 401);
     }
-    console.log(request.user);
     return next();
   } catch {
     throw new AppError('Invalid JWT token', 401);
